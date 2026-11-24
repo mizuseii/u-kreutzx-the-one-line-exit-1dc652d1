@@ -14,8 +14,15 @@ ENTRY = (
 
 OUTPUT_PATH = "/output/entry.txt"
 
+# Sealed gate for this bounty: /output/entry.txt must be 1–140 characters.
+CHAR_LIMIT = 140
+
 
 def main() -> None:
+    if not 1 <= len(ENTRY) <= CHAR_LIMIT:
+        raise SystemExit(
+            f"entry is {len(ENTRY)} chars, outside the 1-{CHAR_LIMIT} gate"
+        )
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as f:
         f.write(ENTRY)
